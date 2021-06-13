@@ -2,7 +2,7 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { RootStackParamList } from '../../types'
-import News from '../screens/News.screen'
+import NewsContainer from '../redux/containers/news.container'
 import { View } from 'react-native'
 import Colors from '../constants/Colors';
 import Fonts from '../constants/Fonts';
@@ -28,6 +28,6 @@ const navigatorOptions = {
 }
 const RootStack = () => {
     return <Stack.Navigator initialRouteName='News' screenOptions={navigatorOptions}>
-        <Stack.Screen name="News" component={News} options={{ headerTitle: 'News' }} />
+        <Stack.Screen name="News" component={NewsContainer} options={{ headerTitle: 'News' }} />
     </Stack.Navigator>
 }
