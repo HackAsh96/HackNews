@@ -1,16 +1,18 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { FlatList, StyleSheet, Text, View } from 'react-native'
 import { NavigationPropsConfiguration } from '../helper.config'
 
 interface NewsProps {
     navigation: NavigationPropsConfiguration
+    storiesItem: Array<object>
 }
 
 export default class News extends React.Component<NewsProps>{
+    componentDidMount() {
+        console.log('sjdfhjdhn', this.props.storiesItem)
+    }
     render() {
-        return <View style={styles.container}>
-            <Text>This is the news screen</Text>
-        </View>
+        return <FlatList data={this.props.storiesItem} renderItem={({ item }) => <Text>{item.author.id}</Text>} />
     }
 }
 
