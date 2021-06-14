@@ -2,49 +2,80 @@ import React from 'react'
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import Colors from '../constants/Colors'
 import Fonts from '../constants/Fonts'
-import { AntDesign, Octicons } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
 import { convertDateFormat } from '../helper.config';
+import * as Linking from 'expo-linking';
+import { StoriesItemInterface } from '../redux/types';
 
-interface INewsListCard {
-    data: any
+interface INewsListCardProps {
+    data: StoriesItemInterface
 }
 
-export default class NewsListCard extends React.Component<INewsListCard>{
+export default class NewsListCard extends React.Component<INewsListCardProps>{
+    state = {
+        showUserDetails: false
+    }
+    setUserDetails: any = (item: any) => {
+        const details = [
+            {
+                detail: item.author.id, extra: <FontAwesome name="user" size={17} color={Colors.lochmara} />
+            },
+            {
+                detail: item.author.author_karma_score, extra: <FontAwesome name="thumbs-o-up" size={17} color={Colors.carribeanGreen} />
+            }]
+        return details.map(value => {
+            if (!value.detail) return null
+            return <View style={styles.innerBottomCardContainer}>
+                {value.extra}
+                <Text style={styles.innerBottomText}>{value.detail}</Text>
+            </View>
+        })
+
+    }
     render() {
         const { data } = this.props
-        return <TouchableOpacity onPress={() => null} activeOpacity={0.6} style={styles.cardContainer}>
+        return <View style={styles.cardContainer}>
             <View style={styles.innerCardContainer}>
                 <View style={{ flex: 2 }}>
                     <Text style={styles.title}>{data.title}</Text>
                     <Text
-                        style={styles.creationDateText}>Written by <Text
+                        style={styles.creationDateText}><Text
                             style={{
                                 fontFamily: Fonts.bold
-                            }}>{data.author.id}</Text> in {convertDateFormat(data.timestamp)} </Text>
+                            }}>{data.score} points</Text> by <Text
+                                style={{
+                                    fontFamily: Fonts.bold,
+                                    textDecorationLine: 'underline'
+                                }}
+                                onPress={() => this.setState({ showUserDetails: !this.state.showUserDetails })}
+                            >{data.author.id}</Text> {convertDateFormat(data.timestamp)} </Text>
                     <Text
-                        style={styles.description}>{data.url}</Text>
+                        style={styles.url} onPress={() => Linking.openURL(data.url)}>{!data.url ? <Text style={{ textDecorationLine: 'none', color: Colors.gray }}>This story does not have link</Text> : data.url}</Text>
                 </View>
             </View>
-        </TouchableOpacity >
+            {this.state.showUserDetails && <View style={styles.bottomCardContainer}>
+                {this.setUserDetails(data)}
+            </View>}
+        </View >
     }
 }
 
 const styles = StyleSheet.create({
-    description: {
+    url: {
         fontFamily: Fonts.regular,
-        fontSize: 12,
+        fontSize: 16,
         color: Colors.lochmara
     },
     creationDateText: {
         marginVertical: 5,
         fontFamily: Fonts.regular,
-        fontSize: 13,
+        fontSize: 18,
         color: Colors.gray
     },
     title: {
-        fontFamily: Fonts.regular,
-        fontSize: 17,
-        color: Colors.lochmara
+        fontFamily: Fonts.bold,
+        fontSize: 20,
+        color: Colors.chileanHeath
     },
     innerCardContainer: {
         flexDirection: 'row',
@@ -54,7 +85,6 @@ const styles = StyleSheet.create({
     cardContainer: {
         flex: 1,
         backgroundColor: Colors.white,
-        marginHorizontal: 10,
         marginVertical: 10,
         padding: 20,
         borderRadius: 10,
@@ -70,7 +100,7 @@ const styles = StyleSheet.create({
     bottomCardContainer: {
         flexDirection: 'row',
         alignSelf: 'stretch',
-        justifyContent: 'space-between',
+        justifyContent: 'flex-start',
         alignItems: 'center',
         borderTopColor: Colors.lightGray,
         borderTopWidth: 1,
@@ -80,17 +110,13 @@ const styles = StyleSheet.create({
     innerBottomCardContainer: {
         flexDirection: 'row',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginRight: 20
     },
     innerBottomText: {
         fontFamily: Fonts.semiBold,
-        fontSize: 16,
+        fontSize: 18,
         color: Colors.gray,
         marginLeft: 5
-    },
-    languageColorContainer: {
-        height: 10,
-        width: 10,
-        borderRadius: 5
     }
 })
