@@ -10,33 +10,44 @@ interface INewsProps {
     navigation: NavigationPropsConfiguration
     storiesItem: StoriesItemInterface[]
 }
-
 export default class News extends React.Component<INewsProps>{
-    componentDidMount() {
-        console.log('sjdfhjdhn', this.props.storiesItem)
-    }
     _renderNewsCard = ({ item }: any) => {
         return <NewsListCard
             data={item}
         />
     }
     render() {
-        return <View style={{ flex: 1 }}>
-            <View style={{ borderWidth: 1, backgroundColor: Colors.cornflowerBlue }}><Text style={{ fontFamily: Fonts.bold, fontSize: 30, color: Colors.cherryPie }}>NewsHacker</Text></View>
+        const { storiesItem } = this.props
+        return <View style={styles.viewWrapper}>
+            <View style={styles.headerTitleContainer}><Text style={styles.headerTitle}>NewsHacker</Text></View>
             <FlatList
                 keyExtractor={() => Math.random().toString()}
-                data={this.props.storiesItem}
-                style={{ flex: 1, backgroundColor: Colors.cornflowerBlue }}
+                data={storiesItem}
+                style={styles.container}
                 showsVerticalScrollIndicator={true}
                 indicatorStyle='black'
                 renderItem={this._renderNewsCard}
-            /></View>
+            />
+        </View>
     }
 }
 
 const styles = StyleSheet.create({
+    viewWrapper: {
+        flex: 1,
+        backgroundColor: Colors.cherryPie
+    },
     container: {
         flex: 1,
-        alignItems: 'center'
+        paddingHorizontal: 10
+    },
+    headerTitleContainer: {
+        paddingHorizontal: 10,
+        paddingVertical: 20
+    },
+    headerTitle: {
+        fontFamily: Fonts.bold,
+        fontSize: 40,
+        color: Colors.chileanHeath
     }
 })
