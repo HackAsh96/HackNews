@@ -15,5 +15,5 @@ export const randomizeNews = (array:number[]) => {
   return array;
 }
 export const convertDateFormat = (date:number) => {
-    return moment.unix(date).format('DD MMM YYYY')
+    return moment.unix(date).fromNow()
 }
