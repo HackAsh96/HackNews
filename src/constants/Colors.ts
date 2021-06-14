@@ -1,0 +1,20 @@
+export default {
+  cherryPie: '#F9F7DE',
+  chileanHeath: '#372D52',
+  cornflowerBlue:'#4C8AFB',
+  slateGray: '#778899',
+  amber: '#FEC200',
+  yellowSea: '#FDAD00',
+  lochmara: '#32569F',
+  white: '#ffff',
+  darkGray: '#4d4d4d',
+	lightGray: '#e0e0e0',
+	gray: '#717076',
+  loaderBackground: '#F5F5F5',
+  loaderForeground: '#DBDADA',
+  internet_explorer: '#18BCEF',
+  rinho:'#293E5D',
+	red: '#cc5656',
+	infoBlue: '#3DACC6',
+	yellow: '#ffc247'
+};
