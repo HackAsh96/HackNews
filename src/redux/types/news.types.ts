@@ -13,7 +13,7 @@ export interface StoriesItemInterface { //NOTE determine types of story items
     title: string
     url: string
     time: moment.Moment
-    score: number | string
+    score: number
     by:number|string //NOTE Author as 'by: Author id' -->See JSON file on API ENDPOINT 'https://hacker-news.firebaseio.com/v0/item/${id}.json' 
 }
 
