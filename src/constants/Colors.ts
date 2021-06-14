@@ -1,4 +1,5 @@
 export default {
+  carribeanGreen:'#00D4AA',
   cherryPie: '#F9F7DE',
   chileanHeath: '#372D52',
   cornflowerBlue:'#4C8AFB',
