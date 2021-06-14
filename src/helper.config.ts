@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { NavigationScreenProp, NavigationParams, NavigationState } from 'react-navigation';
 
 export type NavigationPropsConfiguration = NavigationScreenProp<NavigationState, NavigationParams>
@@ -12,4 +13,7 @@ export const randomizeNews = (array:number[]) => {
     [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
   }
   return array;
+}
+export const convertDateFormat = (date:number) => {
+    return moment.unix(date).format('DD MMM YYYY')
 }
