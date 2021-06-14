@@ -15,6 +15,7 @@ export default function reducer(state = initialState, action: TopStoriesActionTy
     case GET_STORY_ITEM:
       const storiesArray = state.storiesItem.slice(0)
       storiesArray.push(action.payload)
+      storiesArray.sort((a,b):number=>a.score-b.score)
       return Object.assign({}, state, {
         storiesItem:storiesArray
       })
