@@ -15,7 +15,7 @@ export default class NewsListCard extends React.Component<INewsListCardProps>{
     state = {
         showUserDetails: false
     }
-    setUserDetails: any = (item: any) => {
+    setUserDetails = (item: StoriesItemInterface) => {
         const details = [
             {
                 detail: item.author.id, extra: <FontAwesome name="user" size={17} color={Colors.lochmara} />
